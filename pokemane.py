@@ -18,3 +18,9 @@ moveNames = {
     'm0000' : ['Splash',0,100,0],
     'm0001' : ['SelfHate',0,100,1]
 }
+69
+yeet = 5
+lista = [p1,'p2']
+gek = "yeet"
+print(vars(lista[0])['name'])
+12
