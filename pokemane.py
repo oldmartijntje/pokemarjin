@@ -40,7 +40,7 @@ if True:
 moveNames = {
     #[name,baseattack,accuracy,special]
     'm1' : ['Splash',0,100,0],
-    'm2' : ['SelfHate',0,100,1],#ur speed goes to 0, but ur defense +1
+    'm2' : ['SelfHate',0,100,1],#ur speed goes to like idk 0, but ur defense increases
     'm3' : ['Tackle',3,100,0],
     'm4' : ['Ember',2,100,0],
     'm5' : ['Neko power',0,100,2],#enemy falls in love for some rounds
