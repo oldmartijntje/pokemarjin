@@ -23,4 +23,4 @@ lista = [p1,'p2']
 gek = "yeet"
 print(vars(lista[0])['name'])
 
-
+1
