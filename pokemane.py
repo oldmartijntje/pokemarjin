@@ -1,26 +1,20 @@
-class Person:
-      def __init__(self, name,hp,defense,speed):
+class Pokemon:
+      def __init__(self, name,hp,defense,speed,type,possibleMoves,baseHp,baseDefence,baseSpeed):
         self.name = name
-        self.hp = hp
+        self.hppl = hp
+        self.speedpl = speed
+        self.defensepl = defense
+        self.type = type
+        self.moves = possibleMoves
+        self.basehp = baseHp
+        self.baseDefence = baseDefence
+        self.baseSpeed = baseSpeed
 
-def assignPokemons():
-    p1 = Person("Magikarp", 10,10,10)
-
-pokemon = {
-    'p0000' : ['Magikarp','10',''],
-    'p0001'   : 'Eevee',
-    'p0002': 'Pikachu',
-    'p0003': 'Turtwig',
-    'p0004'  : 'Stannina'
-}
-pokemonPossibleMoves = {
-    'p0000' : 'm0000;m0001',
-    'p0001'   : 'm0002,m0003;m0001',
-    'p0002': 'm0003;m0004;m0005',
-    'p0003': 'm0001;m0005;m0006',
-    'p0004'  : 'm0000;m0007'
-}
+if True:
+    p1 = Pokemon("Magikarp", 2,1,1,'Water',['m0000','m0001'],10,10,10)
+print(p1.type)
 moveNames = {
-    'm0000' : 'Splash'
+    #[name,baseattack,accuracy,special]
+    'm0000' : ['Splash',0,100,0],
+    'm0001' : ['SelfHate',0,100,1]
 }
-print(pokemon['p0003'])
