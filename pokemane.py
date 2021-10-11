@@ -10,11 +10,24 @@ def battle(team, enemyTeam, moves):
     while battleStillGoing == True:
         loop1 = True
         while loop1 == True:
+            enableMove = [True,False,False,False]
             answer = input("\nwhat do you want to do?\n1.attack\n2.run\n3.items\n4.switch pokemon\n")
             if answer != '1' and answer != '2' and answer != '3' and answer != '4':
                 print("sorry, that is not an option")
             elif answer == '1':
-                print("what move do you want to use?")
+                print(moves["m"+team[activePokemon[0]*10][5][0]][0])
+                print("what move do you want to use?\n1."+moves["m"+team[activePokemon[0]*10][5][0]][0])
+                if team[activePokemon[0]*10][5][1] != '0':
+                    print("2."+moves["m"+team[activePokemon[0]*10][5][1]][0])
+                    enableMove[1] = True
+                if team[activePokemon[0]*10][5][2] != '0':
+                    print("3."+moves["m"+team[activePokemon[0]*10][5][2]][0])
+                    enableMove[2] = True
+                if team[activePokemon[0]*10][5][3] != '0':
+                    print("4."+moves["m"+team[activePokemon[0]*10][5][3]][0])
+                    enableMove[3] = True
+                
+                
 
 
 def menu():
@@ -79,7 +92,7 @@ else:
     saveFile = open("yourSaveFile.txt", "x")
 saveFile.close()
 
-#print(moveNames["m0"])
+#print(moves["m0"])
 #lista = [p1,'p2']
 #print(vars(lista[0])['name'])
 
