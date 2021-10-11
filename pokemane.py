@@ -3,6 +3,19 @@ import os
 import os.path
 import random
 import datetime
+def battle(team, enemyTeam, moves):
+    print(team[0][0] + ", i choose you!\nYour opponent takes " + enemyTeam[0][0] + " to the battle")
+    battleStillGoing = True
+    activePokemon = [0,0]
+    while battleStillGoing == True:
+        loop1 = True
+        while loop1 == True:
+            answer = input("\nwhat do you want to do?\n1.attack\n2.run\n3.items\n4.switch pokemon\n")
+            if answer != '1' and answer != '2' and answer != '3' and answer != '4':
+                print("sorry, that is not an option")
+            elif answer == '1':
+                print("what move do you want to use?")
+
 
 def menu():
     loop1 = True
@@ -31,35 +44,37 @@ class Pokemon:
         self.baseSpeed = baseSpeed
 print("Loading...\n")
 if True:
-    p1 = Pokemon("Magikarp",'3','1','1',['Water'],['m1','m2'],'10','10','10')
-    p2 = Pokemon("Stannina",'1','3','1',['Fire'],['m1','m2','m5','m6','m8','m9'],'10','10','10')
-    p3 = Pokemon("Thomas",'2','2','1',['Dark'],['m1','m3','m4','m6','m7'],'10','10','10')
-    p4 = Pokemon("Eevee",'1','2','2',['Normal'],['m0','m2','m4','m7'],'10','10','10')
+    p1 = Pokemon("Magikarp",'3','1','1',['Water'],['1','2'],'10','10','10')
+    p2 = Pokemon("Stannina",'1','3','1',['Fire'],['1','2','5','6','8','9'],'10','10','10')
+    p3 = Pokemon("Thomas",'2','2','1',['Dark'],['1','3','4','6','7'],'10','10','10')
+    p4 = Pokemon("Eevee",'1','2','2',['Normal'],['1','3','4','7'],'10','10','10')
 #print(p1.type)
 
-moveNames = {
-    #[name,baseattack,accuracy,special]
-    'm1' : ['Splash',0,100,0],
-    'm2' : ['SelfHate',0,100,1],#ur speed goes to like idk 0, but ur defense increases
-    'm3' : ['Tackle',3,100,0],
-    'm4' : ['Ember',2,100,0],
-    'm5' : ['Neko power',0,100,2],#enemy falls in love for some rounds
-    'm6' : ['Hacking the mainframe',0,100,3],
-    'm7' : ['Watergun',2,100,0],
-    'm8' : ['Free Premium',0,100,4],#lowers their attacks, defence and speed
-    'm9' : ['Neko Energy',0,100,5],#your speed and attack increases
+moves = {
+    #[name,baseattack,accuracy,special,minimumLevel]
+    'm1' : ['Splash',0,100,0,0],
+    'm2' : ['SelfHate',0,100,1,5],#ur speed goes to like idk 0, but ur defense increases
+    'm3' : ['Tackle',3,100,0,0],
+    'm4' : ['Ember',2,100,0,8],
+    'm5' : ['Neko power',0,100,2,10],#enemy falls in love for some rounds
+    'm6' : ['Hacking the mainframe',0,100,3,10],
+    'm7' : ['Watergun',2,100,0,8],
+    'm8' : ['Free Premium',0,100,4,12],#lowers their attacks, defence and speed
+    'm9' : ['Neko Energy',0,100,5,10],#your speed and attack increases
 
 }
-#Stannina",1,2,1,['Fire','none'],['m0','m1','none','none'],10,10,10,level; = 10
-activePokemon = 0
+#Stannina"','1','2','1',['Fire','none'],['1','2','0','0'],'10','10','10',level; = 10
 gameData =[0]
 if os.path.isfile("yourSaveFile.txt"):
-    saveFile = open("yourSaveFile.txt", "a")
-    pokemonsWrapped, teamWrapped, gameDataWrapped = saveFile.read().split('/')
-    pokemons = pokemonsWrapped.spit(',')
-    team = teamWrapped.spit(',')
-    gameData = gameDataWrapped.spit(',')
-    gameData[0] = int(gameData[0])
+    try:
+        saveFile = open("yourSaveFile.txt", "a")
+        pokemonsWrapped, teamWrapped, gameDataWrapped = saveFile.read().split('/')
+        pokemons = pokemonsWrapped.spit(',')
+        team = teamWrapped.spit(',')
+        gameData = gameDataWrapped.spit(',')
+        gameData[0] = int(gameData[0])
+    except:
+        gameData =[0]
 else:
     saveFile = open("yourSaveFile.txt", "x")
 saveFile.close()
@@ -71,3 +86,5 @@ saveFile.close()
 #Start of game
 print("Welkom to PokeMarjin, my own spin-off pokemon game fully made with python")
 menu()
+team= [["Thomas", 2, 2, 1, ["Dark"], ['1','3','4','0'], '10', '10', '10','10']]
+battle(team, team, moves)
