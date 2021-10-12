@@ -3,10 +3,21 @@ import os
 import os.path
 import random
 import datetime
+import math
 
+def typeComparrison(team,enemyTeam,activePokemon):
+    if len(team[0][4]) == 1:
+        print(len(team[0][4][0]))
 
-def calculateDamage(chosenMove,team,enemyTeam):
-    print()
+def calculateDamage(chosenMove,team,enemyTeam,activePokemon):
+    #typeAdventage = typeComparrison(team,enemyTeam,activePokemon)
+    typeAdventage = 0
+    randomNumber = random.randint(0, 100)
+    if randomNumber < chosenMove[2]:
+        damage = math.floor(chosenMove[1]*(typeAdventage+1)*int(team[activePokemon[0]][10])/(int(enemyTeam[activePokemon[1]][2])*int(enemyTeam[activePokemon[1]][7]))+int(enemyTeam[activePokemon[1]][9])/2* math.floor(int(team[activePokemon[0]][9])/int(enemyTeam[activePokemon[1]][9]))* (random.randint(8, 13)/10))
+        print(damage)
+    else:
+        print("failed to attack")
 
 def battle(team, enemyTeam, moves):
     print(team[0][0] + ", i choose you!\nYour opponent takes " + enemyTeam[0][0] + " to the battle")
@@ -58,7 +69,7 @@ def battle(team, enemyTeam, moves):
                     else:
                         print("that is not an option")
                     print(chosenMove)#['Splash', 0, 100, 0, 0]
-                damage = calculateDamage(chosenMove,team,enemyTeam)
+                damage = calculateDamage(chosenMove,team,enemyTeam,activePokemon)
                         
 
                 
@@ -108,7 +119,7 @@ moves = {
     'm9' : ['Neko Energy',0,100,5,10],#your speed and attack increases
 
 }
-#Stannina"','1','2','1',['Fire','none'],['1','2','0','0'],'10','10','10',level; = 10
+#Stannina"','1','2','1',['Fire','none'],['1','2','0','0'],'10','10','10',level,attack; = 11
 gameData =[0]
 if os.path.isfile("yourSaveFile.txt"):
     try:
