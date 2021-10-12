@@ -17,7 +17,7 @@ def calculateDamage(chosenMove,team,enemyTeam,activePokemon):
         damage = math.floor(chosenMove[1]*(typeAdventage+1)*int(team[activePokemon[0]][10])/(int(enemyTeam[activePokemon[1]][2])*int(enemyTeam[activePokemon[1]][7]))+int(enemyTeam[activePokemon[1]][9])/2* math.floor(int(team[activePokemon[0]][9])/int(enemyTeam[activePokemon[1]][9]))* (random.randint(8, 13)/10))
         print(damage)
     else:
-        print("failed to attack")
+        print("The attack missed")
 
 def battle(team, enemyTeam, moves):
     print(team[0][0] + ", i choose you!\nYour opponent takes " + enemyTeam[0][0] + " to the battle")
@@ -104,6 +104,7 @@ if True:
     p2 = Pokemon("Stannina",'1','3','1',['Fire'],['1','2','5','6','8','9'],'10','10','10')
     p3 = Pokemon("Thomas",'2','2','1',['Dark'],['1','3','4','6','7'],'10','10','10')
     p4 = Pokemon("Eevee",'1','2','2',['Normal'],['1','3','4','7'],'10','10','10')
+    p4 = Pokemon("Muik",'3','3','1',['Water'],['2','6','7','4'],'8','8','8')
 #print(p1.type)
 
 moves = {
@@ -117,6 +118,7 @@ moves = {
     'm7' : ['Watergun',2,100,0,8],
     'm8' : ['Free Premium',0,100,4,12],#lowers their attacks, defence and speed
     'm9' : ['Neko Energy',0,100,5,10],#your speed and attack increases
+    'm10' : ['Buff',0,100,6,15]#significatly boosts your defence
 
 }
 #Stannina"','1','2','1',['Fire','none'],['1','2','0','0'],'10','10','10',level,attack; = 11
