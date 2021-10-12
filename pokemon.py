@@ -57,8 +57,8 @@ def battle(team, enemyTeam, moves):
                         print("cancel")
                     else:
                         print("that is not an option")
-                    print(chosenMove)
-                calculateDamage(chosenMove,team,enemyTeam)
+                    print(chosenMove)#['Splash', 0, 100, 0, 0]
+                damage = calculateDamage(chosenMove,team,enemyTeam)
                         
 
                 
