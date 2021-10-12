@@ -1,10 +1,9 @@
 @echo off
 color a
-set /p allRightsReservedToOldMartinG=[message]
-git commit -a -m %allRightsReservedToOldMartinG%
-git commit -a -m %allRightsReservedToOldMartinG%
-git add --all
-git commit -a -m %allRightsReservedToOldMartinG%
+set /p message=[message]
+git add .
+git status
+git commit -m %message%
 git push
-set /p anwserr=[done]
+set /p done=[done]
 exit
