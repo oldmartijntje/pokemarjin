@@ -10,22 +10,52 @@ def battle(team, enemyTeam, moves):
     while battleStillGoing == True:
         loop1 = True
         while loop1 == True:
-            enableMove = [True,False,False,False]
+            enableMove = [False,False,False,False]
             answer = input("\nwhat do you want to do?\n1.attack\n2.run\n3.items\n4.switch pokemon\n")
             if answer != '1' and answer != '2' and answer != '3' and answer != '4':
                 print("sorry, that is not an option")
             elif answer == '1':
-                print(moves["m"+team[activePokemon[0]*10][5][0]][0])
-                print("what move do you want to use?\n1."+moves["m"+team[activePokemon[0]*10][5][0]][0])
-                if team[activePokemon[0]*10][5][1] != '0':
-                    print("2."+moves["m"+team[activePokemon[0]*10][5][1]][0])
-                    enableMove[1] = True
-                if team[activePokemon[0]*10][5][2] != '0':
-                    print("3."+moves["m"+team[activePokemon[0]*10][5][2]][0])
-                    enableMove[2] = True
-                if team[activePokemon[0]*10][5][3] != '0':
-                    print("4."+moves["m"+team[activePokemon[0]*10][5][3]][0])
-                    enableMove[3] = True
+                loop2 = True
+                while loop2 == True:
+                    print("what move do you want to use?")
+                    if team[activePokemon[0]*10][5][1] != '0':
+                        print("1."+moves["m"+team[activePokemon[0]*10][5][0]][0])
+                        enableMove[0] = True
+                    if team[activePokemon[0]*10][5][1] != '0':
+                        print("2."+moves["m"+team[activePokemon[0]*10][5][1]][0])
+                        enableMove[1] = True
+                    if team[activePokemon[0]*10][5][2] != '0':
+                        print("3."+moves["m"+team[activePokemon[0]*10][5][2]][0])
+                        enableMove[2] = True
+                    if team[activePokemon[0]*10][5][3] != '0':
+                        print("4."+moves["m"+team[activePokemon[0]*10][5][3]][0])
+                        enableMove[3] = True
+                    print("5.cancel")
+                    answer2 = input()
+                    chosenMove = list()
+                    if answer2 == "1" and enableMove[0] == True:
+                        print("1."+moves["m"+team[activePokemon[0]*10][5][0]][0])
+                        chosenMove.append(moves["m"+team[activePokemon[0]*10][5][0]]) 
+                        loop2 = False 
+                    elif answer2 == "2" and enableMove[1] == True:
+                        print("2."+moves["m"+team[activePokemon[0]*10][5][1]][0])
+                        chosenMove.append(moves["m"+team[activePokemon[0]*10][5][1]]) 
+                        loop2 = False 
+                    elif answer2 == "3" and enableMove[2] == True:
+                        print("3."+moves["m"+team[activePokemon[0]*10][5][2]][0])
+                        chosenMove.append(moves["m"+team[activePokemon[0]*10][5][2]]) 
+                        loop2 = False 
+                    elif answer2 == "4" and enableMove[3] == True:
+                        print("4."+moves["m"+team[activePokemon[0]*10][5][3]][0])
+                        chosenMove.append(moves["m"+team[activePokemon[0]*10][5][3]])
+                        loop2 = False 
+                    elif answer2 == "5":
+                        print("cancel")
+                    else:
+                        print("that is not an option")
+                    print()
+                        
+
                 
                 
 
