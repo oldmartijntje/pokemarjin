@@ -13,10 +13,12 @@ def calculateDamage(chosenMove,team,enemyTeam,activePokemon):
     #typeAdventage = typeComparrison(team,enemyTeam,activePokemon)
     typeAdventage = 0
     randomNumber = random.randint(0, 100)
-    if randomNumber < chosenMove[2]:
-        damage = math.floor((chosenMove[1] * (typeAdventage+1) * int(vars(team[activePokemon[0]])['currentAttack']) * (math.floor(int(vars(team[activePokemon[0]])['level']) / int(vars(enemyTeam[activePokemon[1]])['level']))) * (random.randint(8, 13)/10) * int(vars(enemyTeam[activePokemon[1]])['attackModifier'])) / 500 * (500 - int(vars(enemyTeam[activePokemon[1]])['currentDef'])))
+    if randomNumber <= chosenMove[2]:
+        damage = math.floor((chosenMove[1] * math.floor(int(vars(team[activePokemon[0]])['level'])) * (typeAdventage+1) * int(vars(team[activePokemon[0]])['currentAttack'])) - math.floor((int(vars(enemyTeam[activePokemon[1]])['currentDef']) / 1.25)) * (random.randint(975, 1025)/1000))
+        if damage < 1:
+            damage = 1
         print(damage)
-        print(f"{chosenMove[1]},{typeAdventage},", vars(team[activePokemon[0]])['currentAttack'],",",vars(enemyTeam[activePokemon[1]])['currentDef'],",",math.floor(int(vars(team[activePokemon[0]])['level']) / int(vars(enemyTeam[activePokemon[1]])['level'])),",",(vars(enemyTeam[activePokemon[1]])['attackModifier']))
+        #print(f"{chosenMove[1]},{typeAdventage},", vars(team[activePokemon[0]])['currentAttack'],",",vars(enemyTeam[activePokemon[1]])['currentDef'],",",math.floor(int(vars(team[activePokemon[0]])['level']) / int(vars(enemyTeam[activePokemon[1]])['level'])),",",(vars(enemyTeam[activePokemon[1]])['attackModifier']))
     else:
         print("The attack missed")
 
@@ -89,7 +91,7 @@ def saving(pokemons, team, gameData):
     saveFile.seek(0)
     #saveFile.write(pokemons, "/", team, "/", gameData)
 class PokemonInTeam:
-    def __init__(self, name, hp, defense, speed, type, moves, baseHp, baseDefence, baseSpeed, attackModifier, level):
+    def __init__(self, name, hp, defense, speed, type, moves, baseHp, baseDefence, baseSpeed, level):
         self.name = name
         self.hppl = hp
         self.speedpl = speed
@@ -103,14 +105,13 @@ class PokemonInTeam:
         self.basehp = baseHp
         self.baseDefence = baseDefence
         self.baseSpeed = baseSpeed
-        self.attackModifier = attackModifier
         self.level = level
         self.currentHp = str(int(hp) * int(level)+int(baseHp))
         self.currentSpeed = str(int(speed) * int(level)+int(baseSpeed))
         self.currentDef = str(int(defense) * int(level)+int(baseDefence))
         self.currentAttack = '1'
 class Pokemon:
-      def __init__(self, name, hp, defense, speed, type, possibleMoves, baseHp, baseDefence, baseSpeed, attackModifier):
+      def __init__(self, name, hp, defense, speed, type, possibleMoves, baseHp, baseDefence, baseSpeed):
         self.name = name
         self.hppl = hp
         self.speedpl = speed
@@ -120,30 +121,29 @@ class Pokemon:
         self.basehp = baseHp
         self.baseDefence = baseDefence
         self.baseSpeed = baseSpeed
-        self.attack = attackModifier
 print("Loading...\n")
 if True:
-    p1 = Pokemon("Magikarp", '3', '1', '1', ['Water'], ['1', '2'], '10', '10', '10', '1')
-    p2 = Pokemon("Stannina", '1', '3', '1', ['Fire'], ['1', '2', '5', '6', '8', '9'], '10', '10', '10', '1')
-    p3 = Pokemon("Thomas", '2', '2', '1', ['Dark'], ['1', '3', '4', '6', '7'], '10', '10', '10', '1')
-    p4 = Pokemon("Eevee", '1', '2', '2', ['Normal'], ['1', '3', '4', '7'], '10', '10', '10', '1')
-    p4 = Pokemon("Muik", '3', '3', '1', ['Water'], ['2', '6', '7', '4'], '8', '8', '8', '1')
+    p1 = Pokemon("Magikarp", '3', '1', '1', ['Water'], ['1', '2'], '10', '10', '10')
+    p2 = Pokemon("Stannina", '1', '3', '1', ['Fire'], ['1', '2', '5', '6', '8', '9'], '10', '10', '10')
+    p3 = Pokemon("Thomas", '2', '2', '1', ['Dark'], ['1', '3', '4', '6', '7'], '10', '10', '10')
+    p4 = Pokemon("Eevee", '1', '2', '2', ['Normal'], ['1', '3', '4', '7'], '10', '10', '10')
+    p4 = Pokemon("Muik", '3', '3', '1', ['Water'], ['2', '6', '7', '4'], '8', '8', '8')
 #print(p1.type)
 moves = {
     #[name,baseattack,accuracy,special,minimumLevel]
     'm1' : ['Splash',0,100,0,0],
     'm2' : ['SelfHate',0,100,1,5],#ur speed goes to like idk 0, but ur defense increases
-    'm3' : ['Tackle',3,100,0,0],
-    'm4' : ['Ember',2,100,0,8],
-    'm5' : ['Neko power',0,100,2,10],#enemy falls in love for some rounds
-    'm6' : ['Hacking the mainframe',0,100,3,10],
-    'm7' : ['Watergun',2,100,0,8],
-    'm8' : ['Free Premium',0,100,4,12],#lowers their attacks, defence and speed
+    'm3' : ['Tackle',3,85,0,0],
+    'm4' : ['Ember',2,75,0,8],
+    'm5' : ['Neko power',0,80,2,10],#enemy falls in love for some rounds
+    'm6' : ['Hacking the mainframe',0,50,3,10],
+    'm7' : ['Watergun',2,75,0,8],
+    'm8' : ['Free Premium',0,90,4,12],#lowers their attacks, defence and speed
     'm9' : ['Neko Energy',0,100,5,10],#your speed and attack increases
     'm10' : ['Buff',0,100,6,15]#significatly boosts your defence
 
 }
-#Stannina"','1','2','1',['Fire','none'],['1','2','0','0'],'10','10','10',level,attack; = 11
+#Stannina"','1','2','1',['Fire','none'],['1','2','0','0'],'10','10','10',level; = 11
 gameData =[0]
 if os.path.isfile("yourSaveFile.txt"):
     try:
@@ -167,11 +167,11 @@ saveFile.close()
 print("Welkom to PokeMarjin, my own spin-off pokemon game fully made with python")
 menu()
 #team= [["Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10','10',1]]
-t1 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '1', '10')
-t2 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '1', '10')
-t3 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '1', '10')
-t4 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '1', '10')
-t5 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '1', '10')
-t6 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '1', '10')
+t1 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '10')
+t2 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '10')
+t3 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '10')
+t4 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '10')
+t5 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '10')
+t6 =PokemonInTeam("Thomas", '2', '2', '1', ["Dark"], ['1','3','4','0'], '10', '10', '10', '10')
 team = [t1, t2, t3, t4, t5, t6]
 battle(team, team, moves)
