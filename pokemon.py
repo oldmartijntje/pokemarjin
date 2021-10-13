@@ -13,10 +13,12 @@ def calculateDamage(chosenMove,team,enemyTeam,activePokemon):
     #typeAdventage = typeComparrison(team,enemyTeam,activePokemon)
     typeAdventage = 0
     randomNumber = random.randint(0, 100)
-    if randomNumber <= chosenMove[2]:
+    if chosenMove[1] == 0:
+        damage = 0
+    elif randomNumber <= chosenMove[2]:
         damage = math.floor((chosenMove[1] * math.floor(int(vars(team[activePokemon[0]])['level'])) * (typeAdventage+1) * int(vars(team[activePokemon[0]])['currentAttack'])) - math.floor((int(vars(enemyTeam[activePokemon[1]])['currentDef']) / 1.25)) * (random.randint(975, 1025)/1000))
-        if damage < 1:
-            damage = 1
+        #if damage < 1:
+         #   damage = 1
         print(damage)
         #print(f"{chosenMove[1]},{typeAdventage},", vars(team[activePokemon[0]])['currentAttack'],",",vars(enemyTeam[activePokemon[1]])['currentDef'],",",math.floor(int(vars(team[activePokemon[0]])['level']) / int(vars(enemyTeam[activePokemon[1]])['level'])),",",(vars(enemyTeam[activePokemon[1]])['attackModifier']))
     else:
@@ -97,10 +99,10 @@ class PokemonInTeam:
         self.speedpl = speed
         self.defensepl = defense
         self.type = type
-        self.move1 = moves[0]
-        self.move2 = moves[1]
-        self.move3 = moves[2]
-        self.move4 = moves[3]
+        self.move1 = moves[0],moves[0][5]#second one is for pp there is still left
+        self.move2 = moves[1],moves[0][5]
+        self.move3 = moves[2],moves[0][5]
+        self.move4 = moves[3],moves[0][5]
         self.moves = moves
         self.basehp = baseHp
         self.baseDefence = baseDefence
@@ -130,17 +132,17 @@ if True:
     p4 = Pokemon("Muik", '3', '3', '1', ['Water'], ['2', '6', '7', '4'], '8', '8', '8')
 #print(p1.type)
 moves = {
-    #[name,baseattack,accuracy,special,minimumLevel]
-    'm1' : ['Splash',0,100,0,0],
-    'm2' : ['SelfHate',0,100,1,5],#ur speed goes to like idk 0, but ur defense increases
-    'm3' : ['Tackle',3,85,0,0],
-    'm4' : ['Ember',2,75,0,8],
-    'm5' : ['Neko power',0,80,2,10],#enemy falls in love for some rounds
-    'm6' : ['Hacking the mainframe',0,50,3,10],
-    'm7' : ['Watergun',2,75,0,8],
-    'm8' : ['Free Premium',0,90,4,12],#lowers their attacks, defence and speed
-    'm9' : ['Neko Energy',0,100,5,10],#your speed and attack increases
-    'm10' : ['Buff',0,100,6,15]#significatly boosts your defence
+    #[name,baseattack,accuracy,special,minimumLevel,maxPP]
+    'm1' : ['Splash',0,100,0,0,20],
+    'm2' : ['SelfHate',0,100,1,5,5],#ur speed goes to like idk 0, but ur defense increases
+    'm3' : ['Tackle',3,85,0,0,15],
+    'm4' : ['Ember',2,75,0,8,15],
+    'm5' : ['Neko power',0,80,2,10,10],#enemy falls in love for some rounds
+    'm6' : ['Hacking the mainframe',0,50,3,10,5],
+    'm7' : ['Watergun',2,75,0,8,15],
+    'm8' : ['Free Premium',0,90,4,12,5],#lowers their attacks, defence and speed
+    'm9' : ['Neko Energy',0,100,5,10,5],#your speed and attack increases
+    'm10' : ['Buff',0,100,6,15,10]#significatly boosts your defence
 
 }
 #Stannina"','1','2','1',['Fire','none'],['1','2','0','0'],'10','10','10',level; = 11
