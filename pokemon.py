@@ -17,9 +17,9 @@ def calculateDamage(chosenMove,team,enemyTeam,activePokemon):
         damage = 0
     elif randomNumber <= chosenMove[2]:
         #damage = math.floor((chosenMove[1] * math.floor(int(vars(team[activePokemon[0]])['level'])) * (typeAdventage+1) * int(vars(team[activePokemon[0]])['currentAttack'])) - math.floor((int(vars(enemyTeam[activePokemon[1]])['currentDef']) / 1.25)) * (random.randint(975, 1025)/1000))
-        #if damage < 1:
-        damage = math.floor((((2 * math.floor(int(vars(team[activePokemon[0]])['level']))) / 5 + 2) * chosenMove[1] * int(vars(team[activePokemon[0]])['currentAttack']) / int(vars(enemyTeam[activePokemon[1]])['currentDef'])) / 50 + 2)
-         #   damage = 1
+        damage = math.floor((((2 * int(vars(team[activePokemon[0]])['level'])) / 5 + 2) * chosenMove[1] * int(vars(team[activePokemon[0]])['currentAttack']) / int(vars(enemyTeam[activePokemon[1]])['currentDef'])) / 50 + 2)
+        if damage < 1:
+            damage = 1
         print(damage)
         #print(f"{chosenMove[1]},{typeAdventage},", vars(team[activePokemon[0]])['currentAttack'],",",vars(enemyTeam[activePokemon[1]])['currentDef'],",",math.floor(int(vars(team[activePokemon[0]])['level']) / int(vars(enemyTeam[activePokemon[1]])['level'])),",",(vars(enemyTeam[activePokemon[1]])['attackModifier']))
     else:
@@ -94,7 +94,7 @@ def saving(pokemons, team, gameData):
     saveFile.seek(0)
     #saveFile.write(pokemons, "/", team, "/", gameData)
 class PokemonInTeam:
-    def __init__(self, name, hp, defense, attack, speed, type, moves, baseHp, baseDefence, baseAttack, baseSpeed, level):
+    def __init__(self, name, hp, defense, attack, speed, type, moves, baseHp, baseDefence, baseAttack, baseSpeed, level, gameVersionAge, originalOwner):
         self.name = name
         self.hppl = hp
         self.speedpl = speed
@@ -115,6 +115,8 @@ class PokemonInTeam:
         self.currentSpeed = str(int(speed) * int(level)+int(baseSpeed))
         self.currentDef = str(int(defense) * int(level)+int(baseDefence))
         self.currentAttack = str(int(attack) * int(level)+int(baseAttack))
+        self.version = gameVersionAge
+        self.owner = originalOwner
 class Pokemon:
       def __init__(self, name, hp, defense, attack, speed, type, possibleMoves, baseHp, baseDefence, baseAttack,baseSpeed):
         self.name = name
@@ -131,23 +133,28 @@ class Pokemon:
 print("Loading...\n")
 if True:
     p1 = Pokemon("Magikarp", '3', '1', '1', '1', ['Water'], ['1', '2'], '10', '10', '10', '10')
-    p2 = Pokemon("Stannina", '1', '3', '1', '1', ['Fire'], ['1', '2', '5', '6', '8', '9'], '10', '10', '10', '10')
-    p3 = Pokemon("Thomas", '2', '2', '1', '1', ['Dark'], ['1', '3', '4', '6', '7'], '10', '10', '10', '10')
-    p4 = Pokemon("Eevee", '1', '2', '1', '2', ['Normal'], ['1', '3', '4', '7'], '10', '10', '10', '10')
-    p5 = Pokemon("Muik", '3', '3', '1', '1', ['Water'], ['2', '6', '7', '4'], '8', '8', '8', '8')
+    p2 = Pokemon("Stannina", '2', '1', '3', '1', ['Fire'], ['1', '2', '5', '6', '8', '9'], '10', '10', '10', '10')
+    p3 = Pokemon("Thomas", '2', '2', '2', '1', ['Dark'], ['1', '3', '4', '6', '7'], '10', '10', '10', '10')
+    p4 = Pokemon("Eevee", '1', '2', '2', '2', ['Normal'], ['1', '3', '4', '7'], '10', '10', '10', '10')
+    p5 = Pokemon("Muik", '3', '5', '1', '1', ['Water'], ['2', '6', '7', '4'], '8', '8', '8', '8')
+    p6 = Pokemon("Soarash", '4', '3', '1', '2', ['Dragon'], ['11', '12'], '30', '8', '8', '8')
 #print(p1.type)
 moves = {
-    #[name,baseattack,accuracy,special,minimumLevel,maxPP]
-    'm1' : ['Splash',0,100,0,0,20],
-    'm2' : ['SelfHate',0,100,1,5,5],#ur speed goes to like idk 0, but ur defense increases
-    'm3' : ['Tackle',3,85,0,0,15],
-    'm4' : ['Ember',2,75,0,8,15],
-    'm5' : ['Neko power',0,80,2,10,10],#enemy falls in love for some rounds
-    'm6' : ['Hacking the mainframe',0,50,3,10,5],
-    'm7' : ['Watergun',2,75,0,8,15],
-    'm8' : ['Free Premium',0,90,4,12,5],#lowers their attacks, defence and speed
-    'm9' : ['Neko Energy',0,100,5,10,5],#your speed and attack increases
-    'm10' : ['Buff',0,100,6,15,10]#significatly boosts your defence
+
+    #pokeball per 2 % hp, 1% dat je hem vangt
+    #[name,baseattack,accuracy,special,minimumLevel,maxPP, type]
+    'm1' : ['Splash', 0, 100, 0, 0, 40, "Normal"],
+    'm2' : ['SelfHate', 0, 100, 1, 5, 5, "Psychic"],#ur attack stats get lowered, but you enter a rage where your defence gets boosted
+    'm3' : ['Tackle', 40, 100, 0, 0, 35, "Normal"],
+    'm4' : ['Ember', 40, 100, 0, 8, 25, "Fire"],
+    'm5' : ['Neko power', 0, 80, 2, 10, 10, "Fairy"],#enemy falls in love for some rounds
+    'm6' : ['Hacking the mainframe', 0, 50, 3, 10, 5, "Electric"],
+    'm7' : ['Watergun', 40, 100, 0, 8, 25, "Water"],
+    'm8' : ['Free Premium', 0, 90, 4, 12, 5, "Ghost"],#lowers their attacks, defence and speed
+    'm9' : ['Neko Energy', 0, 100, 5, 10, 5, "Fairy"],#your speed and attack increases
+    'm10' : ['Buff', 0, 100, 6, 15, 10, "Dark"],#significatly boosts your defence
+    'm11' : ['Smoke Curtain', 30, 100, 7, 0, 10, "Psychic"],#flips coin next turn to see if it hits
+    'm12' : ['Draconic Blaze', 140, 100, 8, 50, 10, "Dragon"]#your opponents pokemon is now burned
 
 }
 #Stannina"','1','2','1',['Fire','none'],['1','2','0','0'],'10','10','10',level; = 11
